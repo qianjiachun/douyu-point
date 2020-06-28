@@ -1,0 +1,90 @@
+{
+  "data": [
+    {
+      "type": "chatmsg",
+      "fields": [
+        {
+          "name": "txt",
+          "cnt": "",
+          "rules": [
+            {
+              "value": "#签到",
+              "fuzzy": true,
+              "change": 1,
+              "limit": 1,
+              "isLive": true
+            },
+            {
+              "value": "自定义弹幕内容",
+              "fuzzy": true,
+              "change": 1,
+              "limit": 1,
+              "isLive": true
+            }
+          ],
+          "default": {
+            "enable": true,
+            "change": 1,
+            "limit": 1,
+            "isLive": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "dgb",
+      "fields": [
+        {
+          "name": "gfid",
+          "cnt": "gfcnt",
+          "rules": [
+            {
+              "value": "20002",
+              "fuzzy": false,
+              "change": 12,
+              "limit": -1,
+              "isLive": false
+            },
+            {
+              "value": "20003",
+              "fuzzy": false,
+              "change": 200,
+              "limit": -1,
+              "isLive": false
+            }
+          ],
+          "default": {
+            "enable": false,
+            "change": 0,
+            "limit": 0,
+            "isLive": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "uenter",
+      "fields": [
+        {
+          "name": "type",
+          "cnt": "",
+          "rules": [
+            {
+              "value": "uenter",
+              "fuzzy": false,
+              "change": 1,
+              "limit": 1,
+              "isLive": true
+            }
+          ],
+          "default": {
+            "enable": false,
+            "change": 0,
+            "limit": 0,
+            "isLive": true
+          }
+        }
+      ]
+    }
+  ]
+}
