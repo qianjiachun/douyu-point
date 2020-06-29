@@ -21,7 +21,7 @@
 6. 全部配置好后，运行软件即可
 
 ## 常见问题
-### 如何快速部署服务(windows)?
+### 如何快速部署服务?
 - 不想配置规则，想直接运行看效果
 1. 可以将项目中的dist文件夹上传到服务器，这个是项目的默认模板程序
 2. 修改config.json中mysql_url
@@ -41,7 +41,6 @@ COLLATE='utf8_general_ci'
 ENGINE=InnoDB
 ;
 ```
-- 如果想要在linux上运行，请自行使用golang交叉编译
 
 ### 如何修改积分规则(rules.json)?
 1. 可按照模板/标准配置，手动或者访问[json在线编辑](http://json.la/online.html)对积分规则(rules.json)进行修改
