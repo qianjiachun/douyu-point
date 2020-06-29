@@ -107,7 +107,7 @@ ENGINE=InnoDB
 ## rules.json
 修改后，可输入reload重载规则  
 用于锁定字段规则，字段来源[斗鱼弹幕服务器第三方接入协议v1.6.2](https://wwa.lanzous.com/io5iMe4qojc)，字段名请与协议中的内容保持一致
-``` json
+```
 // 设计目标：通过字段值寻址，最大化扩展性
 {
     "data": [
