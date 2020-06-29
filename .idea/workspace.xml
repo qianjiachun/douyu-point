@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="41f1fede-6394-421e-8b7e-6627d65cf2ec" name="默认更改列表" comment="">
+      <change afterPath="$PROJECT_DIR$/msg/msg_liveStatus/msg_liveStatus.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/douyu-point.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/douyu-point_linux" beforeDir="false" afterPath="$PROJECT_DIR$/dist/douyu-point_linux" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/douyu-point_windows.exe" beforeDir="false" afterPath="$PROJECT_DIR$/dist/douyu-point_windows.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/msg/msg.go" beforeDir="false" afterPath="$PROJECT_DIR$/msg/msg.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -41,7 +44,9 @@
     <option name="indexEntireGoPath" value="false" />
   </component>
   <component name="ProjectId" id="1duM37Pd5sQYJHX3WGtaIE0TKN3" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="添加" />
+  </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DefaultGoTemplateProperty" value="Go File" />
@@ -55,12 +60,12 @@
     <property name="settings.editor.selected.configurable" value="go.vgo" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\易语言\最近\源码\斗鱼直播间积分系统\douyu-point\client" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\易语言\最近\源码\斗鱼直播间积分系统\douyu-point\dist" />
       <recent name="E:\易语言\最近\源码\斗鱼直播间积分系统\douyu-point\msg\basic" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\易语言\最近\源码\斗鱼直播间积分系统\douyu-point\client" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -108,9 +113,11 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="init" />
     <MESSAGE value="修改readme等" />
-    <option name="LAST_COMMIT_MESSAGE" value="修改readme等" />
+    <MESSAGE value="新增windows和linux执行文件" />
+    <option name="LAST_COMMIT_MESSAGE" value="新增windows和linux执行文件" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
