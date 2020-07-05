@@ -14,16 +14,14 @@ import (
 	"time"
 )
 
-
 func main() {
-	global.List = make(map[string]map[string]int)
-
+	global.List = make(map[string]map[string]*global.InfoUid)
 	loadConfig()
 	loadRules()
 	fmt.Println("======配置项载入完毕======")
 	fmt.Println("直播间号:" + global.Config.RoomID)
 	fmt.Println("获取开播状态中...")
-	ret := common.GetStrMiddle(common.HttpGet("https://www.douyu.com/swf_api/h5room/" + global.Config.RoomID), `show_status":"`, `",`)
+	ret := common.GetStrMiddle(common.HttpGet("https://www.douyu.com/swf_api/h5room/"+global.Config.RoomID), `show_status":"`, `",`)
 	fmt.Println("开播状态：" + ret)
 	if ret == "1" {
 		global.IsLive = true
@@ -32,7 +30,7 @@ func main() {
 	}
 
 	db.Connect(global.Config.MysqlURL)
-	fmt.Println("=> 连接本地数据库完毕")
+	fmt.Println("=> 连接数据库完毕")
 	dy_conn := client.DouyuClient{Rid: global.Config.RoomID}
 	dy_conn.Connect(func(data string) {
 		msg.Init_msg(data)
@@ -45,7 +43,7 @@ func main() {
 	c := cron.New()
 	err := c.AddFunc("0 0 0 * * ?", func() { // 每天0点重置limit
 		t := time.Now()
-		global.List = make(map[string]map[string]int)
+		global.List = make(map[string]map[string]*global.InfoUid)
 		fmt.Println(t.Format("2006-01-02 15:04:05") + " : limit重置完毕")
 	})
 	common.CheckErr(err)
@@ -53,9 +51,7 @@ func main() {
 
 	apis.Init_apis()
 
-	select {
-
-	}
+	select {}
 
 }
 
@@ -89,7 +85,8 @@ func cmdPanel() {
 			fmt.Println("reload : 重新载入rules文件")
 			fmt.Println("resetLimit : 重置所有limit次数")
 		} else if cmd == "resetLimit" {
-			global.List = make(map[string]map[string]int)
+			cmd = ""
+			global.List = make(map[string]map[string]*global.InfoUid)
 			fmt.Println("limit重置完毕")
 		} else {
 			cmd = ""

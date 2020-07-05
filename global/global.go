@@ -6,4 +6,4 @@ var Config _Config
 var Rules _Rules
 var IsLive bool
 var DB *sql.DB
-var List map[string]map[string]int
+var List map[string]map[string]*InfoUid

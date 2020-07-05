@@ -12,21 +12,24 @@
               "fuzzy": true,
               "change": 1,
               "limit": 1,
-              "isLive": true
+              "isLive": true,
+              "cd": 0
             },
             {
-              "value": "自定义弹幕内容",
+              "value": "#打卡",
               "fuzzy": true,
               "change": 1,
-              "limit": 1,
-              "isLive": true
+              "limit": 5,
+              "isLive": false,
+              "cd": 3600
             }
           ],
           "default": {
             "enable": true,
             "change": 1,
             "limit": 1,
-            "isLive": true
+            "isLive": true,
+            "cd": 0
           }
         }
       ]
@@ -42,22 +45,25 @@
               "value": "20002",
               "fuzzy": false,
               "change": 12,
-              "limit": -1,
-              "isLive": false
+              "limit": 0,
+              "isLive": false,
+              "cd": 0
             },
             {
               "value": "20003",
               "fuzzy": false,
               "change": 200,
-              "limit": -1,
-              "isLive": false
+              "limit": 0,
+              "isLive": false,
+              "cd": 0
             }
           ],
           "default": {
             "enable": false,
             "change": 0,
             "limit": 0,
-            "isLive": true
+            "isLive": true,
+            "cd": 0
           }
         }
       ]
@@ -74,14 +80,16 @@
               "fuzzy": false,
               "change": 1,
               "limit": 1,
-              "isLive": true
+              "isLive": true,
+              "cd": 0
             }
           ],
           "default": {
             "enable": false,
             "change": 0,
             "limit": 0,
-            "isLive": true
+            "isLive": true,
+            "cd": 0
           }
         }
       ]

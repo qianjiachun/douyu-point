@@ -6,6 +6,7 @@ import (
 	"douyu-point/global"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func Init_msg_main(data string) {
@@ -70,14 +71,41 @@ func handleRules(data string, fieldValue string, cnt int, fieldRules []global.Ru
 		if isMatch {
 			matchedNum++
 			// 符合rule，开始执行积分操作
-			var tempChange string                          // 变化值
+			var tempChange string // 变化值
+			var isExist bool
 			tempType := common.GetFieldValue(data, "type") // type名
 			tempUid := common.GetFieldValue(data, "uid")   // 用户uid
 			tempId := common.GetFieldValue(data, "nn")     // 用户id
+
+			ruleName := tempType + "_" + item.Value
+			var limitNum int
+			var nextTime int64
+
+			isExist = false
+			limitNum = 0
+			nextTime = 0
+			if _, ok := global.List[ruleName]; ok {
+				if _, ok := global.List[ruleName][tempUid]; ok {
+					isExist = true
+					limitNum = global.List[ruleName][tempUid].Count // 已变化的次数
+					nextTime = global.List[ruleName][tempUid].NextTime
+				}
+			}
+			if time.Now().Unix() < nextTime {
+				return
+			}
+
+			if isExist {
+				global.List[ruleName][tempUid].NextTime = int64(item.Cd) + time.Now().Unix()
+			} else {
+				temp := map[string]*global.InfoUid{}
+				temp[tempUid] = &global.InfoUid{Count: 0, NextTime: int64(item.Cd) + time.Now().Unix()}
+				global.List[ruleName] = temp
+			}
 			if item.Limit > 0 {
 				// 需要限制
 				// 格式：list[ruleName][uid] = num
-				limitNum := global.List[tempType+"_"+item.Value][tempUid] // 已变化的次数
+				//limitNum := global.List[ruleName][tempUid].Count // 已变化的次数
 				if limitNum < item.Limit {
 					// 满足限制条件
 					var newCnt int
@@ -86,13 +114,7 @@ func handleRules(data string, fieldValue string, cnt int, fieldRules []global.Ru
 					} else {
 						newCnt = item.Limit - limitNum
 					}
-					if _, ok := global.List[tempType+"_"+item.Value]; ok {
-						global.List[tempType+"_"+item.Value][tempUid] = limitNum + newCnt
-					} else {
-						temp := make(map[string]int)
-						temp[tempUid] = limitNum + newCnt
-						global.List[tempType+"_"+item.Value] = temp
-					}
+					global.List[ruleName][tempUid].Count = limitNum + newCnt
 					tempChange = strconv.Itoa(newCnt * item.Change)
 					// 插入到数据库
 					db.InsertData(tempUid, tempId, tempChange)
@@ -119,13 +141,39 @@ func handleRules(data string, fieldValue string, cnt int, fieldRules []global.Ru
 			return
 		}
 
-		var tempChange string                          // 变化值
+		var tempChange string // 变化值
+		var isExist bool
 		tempType := common.GetFieldValue(data, "type") // type名
 		tempUid := common.GetFieldValue(data, "uid")   // 用户uid
 		tempId := common.GetFieldValue(data, "nn")     // 用户id
+		ruleName := tempType + "_" + "default"
 
+		var limitNum int
+		var nextTime int64
+
+		isExist = false
+		limitNum = 0
+		nextTime = 0
+		if _, ok := global.List[ruleName]; ok {
+			if _, ok := global.List[ruleName][tempUid]; ok {
+				isExist = true
+				limitNum = global.List[ruleName][tempUid].Count // 已变化的次数
+				nextTime = global.List[ruleName][tempUid].NextTime
+			}
+		}
+
+		if time.Now().Unix() < nextTime {
+			return
+		}
+
+		if isExist {
+			global.List[ruleName][tempUid].NextTime = int64(fieldDeafult.Cd) + time.Now().Unix()
+		} else {
+			temp := map[string]*global.InfoUid{}
+			temp[tempUid] = &global.InfoUid{Count: 0, NextTime: int64(fieldDeafult.Cd) + time.Now().Unix()}
+			global.List[ruleName] = temp
+		}
 		if fieldDeafult.Limit > 0 {
-			limitNum := global.List[tempType+"_"+"default"][tempUid]
 			if limitNum < fieldDeafult.Limit {
 				// 满足限制条件
 
@@ -135,14 +183,7 @@ func handleRules(data string, fieldValue string, cnt int, fieldRules []global.Ru
 				} else {
 					newCnt = fieldDeafult.Limit - limitNum
 				}
-
-				if _, ok := global.List[tempType+"_"+"default"]; ok {
-					global.List[tempType+"_"+"default"][tempUid] = limitNum + newCnt
-				} else {
-					temp := make(map[string]int)
-					temp[tempUid] = limitNum + newCnt
-					global.List[tempType+"_"+"default"] = temp
-				}
+				global.List[ruleName][tempUid].Count = limitNum + newCnt
 
 				tempChange = strconv.Itoa(newCnt * fieldDeafult.Change)
 				// 插入到数据库

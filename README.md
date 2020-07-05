@@ -61,6 +61,7 @@ ENGINE=InnoDB
 4. 如果遇到特殊情况可以输入resetLimit手动重置每天限制的次数
 5. 本项目只完成了原型，更多的功能和HTTP接口请自行实现
 
+
 ## MySQL数据库
 1. 创建一个table
 ```
@@ -122,22 +123,25 @@ ENGINE=InnoDB
                             "value": "弹幕内容1", // 字段的值，注意一定是string类型，也就是带双引号（比如礼物id是纯数字也要用双引号）。这里表示type为chatmsg的里面的txt的值
                             "fuzzy": false, // 是否模糊匹配，若开启，只要弹幕内容包含value的值，就算符合
                             "change": 1, // 填写正负数，表示变化的的积分
-                            "limit": 2, // 表示每日的次数上限，如果写1，表示一天只能计算一次，如果写-1则表示无限
-                            "isLive": true // 是否在开播时才有效
+                            "limit": 2, // 表示每日的次数上限，如果写1，表示一天只能计算一次，如果写0或-1则表示无限
+                            "isLive": true, // 是否在开播时才有效
+                            "cd": 3600 // 冷却时间，单位：秒。例如设置每个小时内只允许加分一次，就写3600。如果设置0，则没有冷却时间。
                         },
                         {
                             "value": "弹幕内容2",
                             "fuzzy": false,
                             "change": 1,
                             "limit": 2,
-                            "isLive": true
+                            "isLive": true,
+                            "cd": 0
                         }
                     ],
                     "default": { // 当上面所有rules都不满足时，则执行default的规则
                         "enable": false, // 是否开启default规则
                         "change": 10,
                         "limit": 1,
-                        "isLive": true
+                        "isLive": true,
+                        "cd": 0
                     }
                 }
             ]
@@ -150,104 +154,116 @@ ENGINE=InnoDB
 // 下面是模板，可依照模板定制个性化的积分规则
 // 实现的规则如下：
 // 1. 每天开播期间发送带有 #签到 的弹幕，增加1积分，每日限1次
-// 2. 每天开播期间发送带有 自定义弹幕内容 的弹幕，增加1积分，每日限1次
+// 2. 每天发送带有 #打卡 的弹幕，增加1积分，每小时只能发送1次，每日限5次
 // 3. 除上述两种弹幕，每天开播期间发送任意的弹幕，增加1积分，每日限1次
 // 4. 赠送办卡(20002)，增加12积分，每日无限次
 // 5. 赠送飞机(20003)，增加200积分，每日无限次
 // 6. 每日开播期间进入直播间，增加1积分，每日限1次
 
 {
-    "data": [
+  "data": [
+    {
+      "type": "chatmsg",
+      "fields": [
         {
-            "type": "chatmsg",
-            "fields": [
-                {
-                    "name": "txt",
-                    "cnt": "",
-                    "rules": [
-                        {
-                            "value": "#签到",
-                            "fuzzy": true,
-                            "change": 1,
-                            "limit": 1,
-                            "isLive": true
-                        },
-                        {
-                            "value": "自定义弹幕内容",
-                            "fuzzy": true,
-                            "change": 1,
-                            "limit": 1,
-                            "isLive": true
-                        }
-                    ],
-                    "default": {
-                        "enable": true,
-                        "change": 1,
-                        "limit": 1,
-                        "isLive": true
-                    }
-                }
-            ]
-        },
-        {
-            "type": "dgb",
-            "fields": [
-                {
-                    "name": "gfid",
-                    "cnt": "gfcnt",
-                    "rules": [
-                        {
-                            "value": "20002",
-                            "fuzzy": false,
-                            "change": 12,
-                            "limit": -1,
-                            "isLive": false
-                        },
-                        {
-                            "value": "20003",
-                            "fuzzy": false,
-                            "change": 200,
-                            "limit": -1,
-                            "isLive": false
-                        }
-                    ],
-                    "default": {
-                        "enable": false,
-                        "change": 0,
-                        "limit": 0,
-                        "isLive": true
-                    }
-                }
-            ]
-        },
-        {
-            "type": "uenter",
-            "fields": [
-                {
-                    "name": "type",
-                    "cnt": "",
-                    "rules": [
-                        {
-                            "value": "uenter",
-                            "fuzzy": false,
-                            "change": 1,
-                            "limit": 1,
-                            "isLive": true
-                        }
-                    ],
-                    "default": {
-                        "enable": false,
-                        "change": 0,
-                        "limit": 0,
-                        "isLive": true
-                    }
-                }
-            ]
+          "name": "txt",
+          "cnt": "",
+          "rules": [
+            {
+              "value": "#签到",
+              "fuzzy": true,
+              "change": 1,
+              "limit": 1,
+              "isLive": true,
+              "cd": 0
+            },
+            {
+              "value": "#打卡",
+              "fuzzy": true,
+              "change": 1,
+              "limit": 5,
+              "isLive": false,
+              "cd": 3600
+            }
+          ],
+          "default": {
+            "enable": true,
+            "change": 1,
+            "limit": 1,
+            "isLive": true,
+            "cd": 0
+          }
         }
-    ]
+      ]
+    },
+    {
+      "type": "dgb",
+      "fields": [
+        {
+          "name": "gfid",
+          "cnt": "gfcnt",
+          "rules": [
+            {
+              "value": "20002",
+              "fuzzy": false,
+              "change": 12,
+              "limit": 0,
+              "isLive": false,
+              "cd": 0
+            },
+            {
+              "value": "20003",
+              "fuzzy": false,
+              "change": 200,
+              "limit": 0,
+              "isLive": false,
+              "cd": 0
+            }
+          ],
+          "default": {
+            "enable": false,
+            "change": 0,
+            "limit": 0,
+            "isLive": true,
+            "cd": 0
+          }
+        }
+      ]
+    },
+    {
+      "type": "uenter",
+      "fields": [
+        {
+          "name": "type",
+          "cnt": "",
+          "rules": [
+            {
+              "value": "uenter",
+              "fuzzy": false,
+              "change": 1,
+              "limit": 1,
+              "isLive": true,
+              "cd": 0
+            }
+          ],
+          "default": {
+            "enable": false,
+            "change": 0,
+            "limit": 0,
+            "isLive": true,
+            "cd": 0
+          }
+        }
+      ]
+    }
+  ]
 }
 ```
 
 ## 更新内容
+
+### 2020年7月5日
+1. rule规则新增cd字段（单位：秒），用于设置某个规则的冷却时间，可实现例如：1小时内只能打一次卡
+
 ### 2020年6月29日
 1. 修复无法变更直播间开播状态的BUG

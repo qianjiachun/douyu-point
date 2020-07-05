@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="41f1fede-6394-421e-8b7e-6627d65cf2ec" name="默认更改列表" comment="">
-      <change afterPath="$PROJECT_DIR$/msg/msg_liveStatus/msg_liveStatus.go" afterDir="false" />
+    <list default="true" id="41f1fede-6394-421e-8b7e-6627d65cf2ec" name="默认更改列表" comment="修复无法变更直播间开播状态的BUG">
+      <change afterPath="$PROJECT_DIR$/dist/douyu-point_win.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/douyu-point_linux" beforeDir="false" afterPath="$PROJECT_DIR$/dist/douyu-point_linux" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/douyu-point_windows.exe" beforeDir="false" afterPath="$PROJECT_DIR$/dist/douyu-point_windows.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/msg/msg.go" beforeDir="false" afterPath="$PROJECT_DIR$/msg/msg.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/douyu-point_windows.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/rules.json" beforeDir="false" afterPath="$PROJECT_DIR$/dist/rules.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/global.go" beforeDir="false" afterPath="$PROJECT_DIR$/global/global.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/struct.go" beforeDir="false" afterPath="$PROJECT_DIR$/global/struct.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/msg/msg_main/msg_main.go" beforeDir="false" afterPath="$PROJECT_DIR$/msg/msg_main/msg_main.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -53,19 +57,22 @@
     <property name="GO_FMT" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="configurable.Global.GOPATH.is.expanded" value="true" />
+    <property name="configurable.Module.GOPATH.is.expanded" value="false" />
+    <property name="configurable.Project.GOPATH.is.expanded" value="true" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/client" />
-    <property name="settings.editor.selected.configurable" value="go.vgo" />
+    <property name="settings.editor.selected.configurable" value="com.goide.configuration.GoLibrariesConfigurableProvider" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\易语言\最近\源码\斗鱼直播间积分系统\douyu-point\client" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\易语言\最近\源码\斗鱼直播间积分系统\douyu-point\dist" />
       <recent name="E:\易语言\最近\源码\斗鱼直播间积分系统\douyu-point\msg\basic" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\易语言\最近\源码\斗鱼直播间积分系统\douyu-point\client" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -117,7 +124,8 @@
     <MESSAGE value="init" />
     <MESSAGE value="修改readme等" />
     <MESSAGE value="新增windows和linux执行文件" />
-    <option name="LAST_COMMIT_MESSAGE" value="新增windows和linux执行文件" />
+    <MESSAGE value="修复无法变更直播间开播状态的BUG" />
+    <option name="LAST_COMMIT_MESSAGE" value="修复无法变更直播间开播状态的BUG" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
