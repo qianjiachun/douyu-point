@@ -90,6 +90,8 @@ func handleRules(data string, fieldValue string, cnt int, fieldRules []global.Ru
 					limitNum = global.List[ruleName][tempUid].Count // 已变化的次数
 					nextTime = global.List[ruleName][tempUid].NextTime
 				}
+			} else {
+				global.List[ruleName] = make(map[string]*global.InfoUid)
 			}
 			if time.Now().Unix() < nextTime {
 				return
@@ -98,9 +100,7 @@ func handleRules(data string, fieldValue string, cnt int, fieldRules []global.Ru
 			if isExist {
 				global.List[ruleName][tempUid].NextTime = int64(item.Cd) + time.Now().Unix()
 			} else {
-				temp := map[string]*global.InfoUid{}
-				temp[tempUid] = &global.InfoUid{Count: 0, NextTime: int64(item.Cd) + time.Now().Unix()}
-				global.List[ruleName] = temp
+				global.List[ruleName][tempUid] = &global.InfoUid{Count: 0, NextTime: int64(fieldDeafult.Cd) + time.Now().Unix()}
 			}
 			if item.Limit > 0 {
 				// 需要限制
@@ -147,7 +147,6 @@ func handleRules(data string, fieldValue string, cnt int, fieldRules []global.Ru
 		tempUid := common.GetFieldValue(data, "uid")   // 用户uid
 		tempId := common.GetFieldValue(data, "nn")     // 用户id
 		ruleName := tempType + "_" + "default"
-
 		var limitNum int
 		var nextTime int64
 
@@ -160,6 +159,8 @@ func handleRules(data string, fieldValue string, cnt int, fieldRules []global.Ru
 				limitNum = global.List[ruleName][tempUid].Count // 已变化的次数
 				nextTime = global.List[ruleName][tempUid].NextTime
 			}
+		} else {
+			global.List[ruleName] = make(map[string]*global.InfoUid)
 		}
 
 		if time.Now().Unix() < nextTime {
@@ -169,11 +170,10 @@ func handleRules(data string, fieldValue string, cnt int, fieldRules []global.Ru
 		if isExist {
 			global.List[ruleName][tempUid].NextTime = int64(fieldDeafult.Cd) + time.Now().Unix()
 		} else {
-			temp := map[string]*global.InfoUid{}
-			temp[tempUid] = &global.InfoUid{Count: 0, NextTime: int64(fieldDeafult.Cd) + time.Now().Unix()}
-			global.List[ruleName] = temp
+			global.List[ruleName][tempUid] = &global.InfoUid{Count: 0, NextTime: int64(fieldDeafult.Cd) + time.Now().Unix()}
 		}
 		if fieldDeafult.Limit > 0 {
+
 			if limitNum < fieldDeafult.Limit {
 				// 满足限制条件
 
@@ -184,7 +184,6 @@ func handleRules(data string, fieldValue string, cnt int, fieldRules []global.Ru
 					newCnt = fieldDeafult.Limit - limitNum
 				}
 				global.List[ruleName][tempUid].Count = limitNum + newCnt
-
 				tempChange = strconv.Itoa(newCnt * fieldDeafult.Change)
 				// 插入到数据库
 				db.InsertData(tempUid, tempId, tempChange)

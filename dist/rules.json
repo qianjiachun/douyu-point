@@ -21,7 +21,7 @@
               "change": 1,
               "limit": 5,
               "isLive": false,
-              "cd": 3600
+              "cd": 10
             }
           ],
           "default": {
@@ -29,7 +29,7 @@
             "change": 1,
             "limit": 1,
             "isLive": true,
-            "cd": 0
+            "cd": 10
           }
         }
       ]
