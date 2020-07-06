@@ -41,14 +41,14 @@ type InfoUid struct {
 }
 
 type UserInfo struct { // 数据库字段
-	Uid int
-	Id string
-	Point int
-	UpdateTime string
+	Uid        int    `json:"uid"`
+	Id         string `json:"id"`
+	Point      int    `json:"point"`
+	UpdateTime string `json:"update_time"`
 }
 
 type UserInfoJson struct { // 返回给前端的结构
-	Error int
-	Msg string
-	Data []UserInfo
+	Error int        `json:"error"`
+	Msg   string     `json:"msg"`
+	Data  []UserInfo `json:"data"`
 }

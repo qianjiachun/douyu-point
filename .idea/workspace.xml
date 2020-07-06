@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="41f1fede-6394-421e-8b7e-6627d65cf2ec" name="默认更改列表" comment="新增查分">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="41f1fede-6394-421e-8b7e-6627d65cf2ec" name="默认更改列表" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/struct.go" beforeDir="false" afterPath="$PROJECT_DIR$/global/struct.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -119,7 +119,8 @@
     <MESSAGE value="修复无法变更直播间开播状态的BUG" />
     <MESSAGE value="rule规则新增cd字段（单位：秒），用于设置某个规则的冷却时间，可实现例如：1小时内只能打一次卡" />
     <MESSAGE value="1. 修复default规则有误的BUG&#10;2. 优化代码" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. 修复default规则有误的BUG&#10;2. 优化代码" />
+    <MESSAGE value="新增查分" />
+    <option name="LAST_COMMIT_MESSAGE" value="新增查分" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
