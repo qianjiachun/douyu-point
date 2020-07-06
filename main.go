@@ -9,9 +9,10 @@ import (
 	"douyu-point/msg"
 	"encoding/json"
 	"fmt"
-	"github.com/robfig/cron"
 	"io/ioutil"
 	"time"
+
+	"github.com/robfig/cron"
 )
 
 func main() {
@@ -31,12 +32,11 @@ func main() {
 
 	db.Connect(global.Config.MysqlURL)
 	fmt.Println("=> 连接数据库完毕")
-	dy_conn := client.DouyuClient{Rid: global.Config.RoomID}
-	dy_conn.Connect(func(data string) {
+	dyConn := client.DouyuClient{Rid: global.Config.RoomID}
+	dyConn.Connect(func(data string) {
 		msg.Init_msg(data)
 	})
 	fmt.Println("=> 连接斗鱼服务器完毕")
-	fmt.Println("=> 服务启动成功")
 
 	go cmdPanel()
 
@@ -49,9 +49,8 @@ func main() {
 	common.CheckErr(err)
 	c.Start()
 
+	fmt.Println("=> 服务启动成功")
 	apis.Init_apis()
-
-	select {}
 
 }
 

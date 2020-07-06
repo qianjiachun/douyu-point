@@ -39,3 +39,16 @@ type InfoUid struct {
 	Count    int
 	NextTime int64
 }
+
+type UserInfo struct { // 数据库字段
+	Uid int
+	Id string
+	Point int
+	UpdateTime string
+}
+
+type UserInfoJson struct { // 返回给前端的结构
+	Error int
+	Msg string
+	Data []UserInfo
+}
