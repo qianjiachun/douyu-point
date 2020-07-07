@@ -2,26 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="41f1fede-6394-421e-8b7e-6627d65cf2ec" name="默认更改列表" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apis/room/exchange.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apis/room/query_item.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/db/exchanges.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/db/items.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/db/points.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/douyu-point.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rules.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/apis.go" beforeDir="false" afterPath="$PROJECT_DIR$/apis/apis.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/common/common.go" beforeDir="false" afterPath="$PROJECT_DIR$/apis/apis_common/apis_common.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/room/query_by_uid.go" beforeDir="false" afterPath="$PROJECT_DIR$/apis/room/query_by_uid.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/common.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/common.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/db.go" beforeDir="false" afterPath="$PROJECT_DIR$/db/db.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/struct.go" beforeDir="false" afterPath="$PROJECT_DIR$/global/struct.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/msg/msg_main/msg_main.go" beforeDir="false" afterPath="$PROJECT_DIR$/msg/msg_main/msg_main.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -149,7 +130,8 @@
     <MESSAGE value="rule规则新增cd字段（单位：秒），用于设置某个规则的冷却时间，可实现例如：1小时内只能打一次卡" />
     <MESSAGE value="1. 修复default规则有误的BUG&#10;2. 优化代码" />
     <MESSAGE value="新增查分" />
-    <option name="LAST_COMMIT_MESSAGE" value="新增查分" />
+    <MESSAGE value="新增物品兑换接口" />
+    <option name="LAST_COMMIT_MESSAGE" value="新增物品兑换接口" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>

@@ -60,6 +60,11 @@ func Api_exchange(writer http.ResponseWriter, request *http.Request) {
 
 	itemInfo, itemInfoRet := db.QueryItemById(tx, item_id)
 	if itemInfoRet == false {
+		err = tx.Rollback()
+		if err != nil {
+			log.Println("tx.Rollback() Error:" + err.Error())
+			return
+		}
 		returnJson(&writer, ret, 1, "无效的物品id", nil)
 		return
 	}
@@ -78,9 +83,20 @@ func Api_exchange(writer http.ResponseWriter, request *http.Request) {
 
 	userInfo, userInfoRet := db.QueryUserInfoByUid_Work(tx, uid)
 	if userInfoRet == false {
+		err = tx.Rollback()
+		if err != nil {
+			log.Println("tx.Rollback() Error:" + err.Error())
+			return
+		}
+		returnJson(&writer, ret, 1, "无效的uid", nil)
 		return
 	}
 	if userInfo.Id != id {
+		err = tx.Rollback()
+		if err != nil {
+			log.Println("tx.Rollback() Error:" + err.Error())
+			return
+		}
 		returnJson(&writer, ret, 1, "用户uid与id不匹配", nil)
 		return
 	}
@@ -98,15 +114,30 @@ func Api_exchange(writer http.ResponseWriter, request *http.Request) {
 	newPoint = strconv.Itoa(userInfo.Point - itemInfo.Price)
 
 	if db.UpdateItemNumById(tx, item_id, newNum) == false {
+		err = tx.Rollback()
+		if err != nil {
+			log.Println("tx.Rollback() Error:" + err.Error())
+			return
+		}
 		returnJson(&writer, ret, 1, "更新物品数量失败", nil)
 		return
 	}
 	if db.UpdateUserPointByUid(tx, uid, newPoint) == false {
+		err = tx.Rollback()
+		if err != nil {
+			log.Println("tx.Rollback() Error:" + err.Error())
+			return
+		}
 		returnJson(&writer, ret, 1, "更新用户积分失败", nil)
 		return
 	}
 	item_price := strconv.Itoa(itemInfo.Price)
 	if db.InsertExchange(tx, uid, id, item_id, itemInfo.Name, item_price, info) == false {
+		err = tx.Rollback()
+		if err != nil {
+			log.Println("tx.Rollback() Error:" + err.Error())
+			return
+		}
 		returnJson(&writer, ret, 1, "更新用户兑换记录失败", nil)
 		return
 	}
