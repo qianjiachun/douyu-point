@@ -1,5 +1,10 @@
 package global
 
+/*
+	内存中使用的字段
+	用于底层积分变化逻辑
+*/
+
 type _Rules struct {
 	Data []RuleRoot
 }
@@ -40,7 +45,11 @@ type InfoUid struct {
 	NextTime int64
 }
 
-type UserInfo struct { // 数据库字段
+/*
+	数据库points表的字段
+*/
+
+type UserInfo struct { // points字段
 	Uid        int    `json:"uid"`
 	Id         string `json:"id"`
 	Point      int    `json:"point"`
@@ -48,6 +57,32 @@ type UserInfo struct { // 数据库字段
 }
 
 type UserInfoJson struct { // 返回给前端的结构
+	Error int        `json:"error"`
+	Msg   string     `json:"msg"`
+	Data  []UserInfo `json:"data"`
+}
+
+/*
+	数据库items表的字段
+*/
+
+type Item struct { // items字段
+	Id          int    `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Pic         string `json:"pic"`
+	Price       int    `json:"price"`
+	Num         int    `json:"num"`
+	UpdateTime  string `json:"update_time"`
+}
+
+type ItemJson struct { // 返回给前端的结构
+	Error int    `json:"error"`
+	Msg   string `json:"msg"`
+	Data  []Item `json:"data"`
+}
+
+type ItemExchangeJson struct { // 返回给前端的结构
 	Error int        `json:"error"`
 	Msg   string     `json:"msg"`
 	Data  []UserInfo `json:"data"`

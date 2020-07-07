@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="41f1fede-6394-421e-8b7e-6627d65cf2ec" name="默认更改列表" comment="新增查分">
+    <list default="true" id="41f1fede-6394-421e-8b7e-6627d65cf2ec" name="默认更改列表" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apis/room/exchange.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apis/room/query_item.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/db/exchanges.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/db/items.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/db/points.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/douyu-point.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rules.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/apis.go" beforeDir="false" afterPath="$PROJECT_DIR$/apis/apis.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/common/common.go" beforeDir="false" afterPath="$PROJECT_DIR$/apis/apis_common/apis_common.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/room/query_by_uid.go" beforeDir="false" afterPath="$PROJECT_DIR$/apis/room/query_by_uid.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/common.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/common.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db/db.go" beforeDir="false" afterPath="$PROJECT_DIR$/db/db.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/douyu-point_linux" beforeDir="false" afterPath="$PROJECT_DIR$/dist/douyu-point_linux" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/douyu-point_win.exe" beforeDir="false" afterPath="$PROJECT_DIR$/dist/douyu-point_win.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/struct.go" beforeDir="false" afterPath="$PROJECT_DIR$/global/struct.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/msg/msg_main/msg_main.go" beforeDir="false" afterPath="$PROJECT_DIR$/msg/msg_main/msg_main.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -47,6 +63,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="mysql.8" />
     <property name="DefaultGoTemplateProperty" value="Go File" />
     <property name="GO_FMT" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -96,6 +113,16 @@
         <item itemvalue="Go Build.go build douyu-point" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="allServicesViewState">
+      <serviceView>
+        <treeState>
+          <expand />
+          <select />
+        </treeState>
+      </serviceView>
+    </option>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />

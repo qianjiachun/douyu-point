@@ -117,13 +117,13 @@ func handleRules(data string, fieldValue string, cnt int, fieldRules []global.Ru
 					global.List[ruleName][tempUid].Count = limitNum + newCnt
 					tempChange = strconv.Itoa(newCnt * item.Change)
 					// 插入到数据库
-					db.InsertData(tempUid, tempId, tempChange)
+					db.InsertUserInfo(tempUid, tempId, tempChange)
 				}
 			} else {
 				// 无限制
 				tempChange = strconv.Itoa(cnt * item.Change)
 				// 插入到数据库
-				db.InsertData(tempUid, tempId, tempChange)
+				db.InsertUserInfo(tempUid, tempId, tempChange)
 			}
 
 		}
@@ -186,13 +186,13 @@ func handleRules(data string, fieldValue string, cnt int, fieldRules []global.Ru
 				global.List[ruleName][tempUid].Count = limitNum + newCnt
 				tempChange = strconv.Itoa(newCnt * fieldDeafult.Change)
 				// 插入到数据库
-				db.InsertData(tempUid, tempId, tempChange)
+				db.InsertUserInfo(tempUid, tempId, tempChange)
 			}
 		} else {
 			// 无限制
 			tempChange = strconv.Itoa(cnt * fieldDeafult.Change)
 			// 插入到数据库
-			db.InsertData(tempUid, tempId, tempChange)
+			db.InsertUserInfo(tempUid, tempId, tempChange)
 		}
 
 	}

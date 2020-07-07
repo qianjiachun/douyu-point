@@ -1,6 +1,7 @@
 package common
 
 import (
+	"database/sql"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -29,7 +30,7 @@ func HttpPost(url string, data string) string {
 	req, err := http.NewRequest("POST", url, strings.NewReader(data))
 	CheckErr(err)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-	response,err := client.Do(req)
+	response, err := client.Do(req)
 	CheckErr(err)
 	defer func() {
 		_ = response.Body.Close()
@@ -55,16 +56,36 @@ func GetStrMiddle(str, start, end string) string {
 	return str
 }
 
-func CheckErr(err error) {
-	if err != nil {
-		log.Fatal(err)
-	}
-}
-
 func Bytes2str(b []byte) string {
 	return *(*string)(unsafe.Pointer(&b))
 }
 
 func GetFieldValue(data string, field string) string {
-	return GetStrMiddle(data, field + "@=", "/")
+	return GetStrMiddle(data, field+"@=", "/")
+}
+
+/*
+	CheckErr
+*/
+func CheckErr(err error) {
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+func CheckErrNoExit(err error) {
+	if err != nil {
+		log.Println(err)
+	}
+}
+func CheckErrRollback(err error, tx *sql.Tx) bool {
+	if err != nil {
+		//log.Println(err)
+		err = tx.Rollback()
+		if err != nil {
+			log.Println("tx.Rollback() Error:" + err.Error())
+			return false
+		}
+		return false
+	}
+	return true
 }

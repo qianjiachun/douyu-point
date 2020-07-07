@@ -5,6 +5,7 @@
 1. 能够长久地在低端的服务器上运行
 2. 热更新规则
 3. 配置灵活
+4. 安全完善的积分兑换机制
 
 ## 声明
 1. 本项目为个人兴趣开发，无任何盈利手段
@@ -14,7 +15,7 @@
 
 ## 使用步骤
 1. 需要准备一台服务器，并且部署MySQL数据库
-2. 按照下方要求手动设置数据库
+2. 按照下方要求手动设置数据库，
 3. 将本软件上传至服务器，并在同一目录下创建config.json文件，config配置项见下方
 4. 再创建rules.json文件，放到config.json设置的路径下
 5. rules.json的配置项见下方，为了方便配置可访问[json在线编辑](http://json.la/online.html)对rules进行配置
@@ -31,7 +32,7 @@
 CREATE TABLE `points` (
 	`uid` BIGINT(20) NOT NULL DEFAULT '0',
 	`id` VARCHAR(50) NULL DEFAULT NULL,
-	`point` INT(20) NULL DEFAULT NULL,
+	`point` BIGINT(20) NULL DEFAULT NULL,
 	`update_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	PRIMARY KEY (`uid`),
 	INDEX `index_id` (`id`),
@@ -40,6 +41,39 @@ CREATE TABLE `points` (
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB
 ;
+
+CREATE TABLE `items` (
+	`id` INT(11) NOT NULL DEFAULT '0' COMMENT '物品id',
+	`name` TEXT NULL COMMENT '物品名称',
+	`description` TEXT NULL COMMENT '物品描述',
+	`pic` TEXT NULL COMMENT '物品图片地址',
+	`price` BIGINT(20) NULL DEFAULT NULL COMMENT '物品价格',
+	`num` INT(11) NULL DEFAULT NULL COMMENT '物品数量',
+	`update_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+	PRIMARY KEY (`id`)
+)
+COMMENT='兑换物品列表'
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+;
+
+CREATE TABLE `exchanges` (
+	`uid` BIGINT(20) NOT NULL DEFAULT '0' COMMENT '用户uid',
+	`id` VARCHAR(50) NULL DEFAULT NULL COMMENT '用户id',
+	`item_id` INT(11) NULL DEFAULT NULL COMMENT '物品id',
+	`item_name` TEXT NULL COMMENT '物品名称',
+	`item_price` BIGINT(20) NULL DEFAULT NULL COMMENT '物品价格',
+	`info` TEXT NULL COMMENT '兑换备注信息',
+	`update_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+	INDEX `index_id` (`id`),
+	INDEX `index_item_id` (`item_id`),
+	INDEX `index_uid` (`uid`)
+)
+COMMENT='兑换记录'
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+;
+
 ```
 
 ### 如何修改积分规则(rules.json)?
@@ -54,6 +88,8 @@ ENGINE=InnoDB
 3. 软件目前没有实现服务自动重启功能。若遇到数据库崩溃、斗鱼服务器崩溃等不可抗因素导致软件退出运行，还请自行处理后续。
 
 
+-------------------------------
+
 ## 注意事项
 1. 软件重启后limit会重置，也就是说每天限制的次数会重置
 2. 软件每天0点自动重置limit
@@ -61,26 +97,26 @@ ENGINE=InnoDB
 4. 如果遇到特殊情况可以输入resetLimit手动重置每天限制的次数
 5. 本项目只完成了原型，更多的功能和HTTP接口请自行实现
 
-
+-------------------------------
 ## MySQL数据库
-1. 创建一个table
+1. 创建table
 ```
 points // 用户积分
+items // 兑换物品
+exchanges // 兑换记录
 ```
-2. points表（uid, id, point三个单列索引）
+2. points表
 ```
 字段:
 uid // 用户uid BIGINT(20) 主键 无默认值
 id // 用户id VARCHAR(50)
-point // 用户积分 INT(20)
+point // 用户积分 BIGINT(20)
 update_time // 更新时间
 
-
-创建代码:
 CREATE TABLE `points` (
 	`uid` BIGINT(20) NOT NULL DEFAULT '0',
 	`id` VARCHAR(50) NULL DEFAULT NULL,
-	`point` INT(20) NULL DEFAULT NULL,
+	`point` BIGINT(20) NULL DEFAULT NULL,
 	`update_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	PRIMARY KEY (`uid`),
 	INDEX `index_id` (`id`),
@@ -90,8 +126,46 @@ COLLATE='utf8_general_ci'
 ENGINE=InnoDB
 ;
 
-
 ```
+
+3. items表
+```
+CREATE TABLE `items` (
+	`id` INT(11) NOT NULL DEFAULT '0' COMMENT '物品id',
+	`name` TEXT NULL COMMENT '物品名称',
+	`description` TEXT NULL COMMENT '物品描述',
+	`pic` TEXT NULL COMMENT '物品图片地址',
+	`price` BIGINT(20) NULL DEFAULT NULL COMMENT '物品价格',
+	`num` INT(11) NULL DEFAULT NULL COMMENT '物品数量',
+	`update_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+	PRIMARY KEY (`id`)
+)
+COMMENT='兑换物品列表'
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+;
+```
+
+4. exchanges表
+```
+CREATE TABLE `exchanges` (
+	`uid` BIGINT(20) NOT NULL DEFAULT '0' COMMENT '用户uid',
+	`id` VARCHAR(50) NULL DEFAULT NULL COMMENT '用户id',
+	`item_id` INT(11) NULL DEFAULT NULL COMMENT '物品id',
+	`item_name` TEXT NULL COMMENT '物品名称',
+	`item_price` BIGINT(20) NULL DEFAULT NULL COMMENT '物品价格',
+	`info` TEXT NULL COMMENT '兑换备注信息',
+	`update_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+	INDEX `index_id` (`id`),
+	INDEX `index_item_id` (`item_id`),
+	INDEX `index_uid` (`uid`)
+)
+COMMENT='兑换记录'
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+;
+```
+5. 为了防止出现Incorrect string value: '\xF0\x9F\x90\xB7' for column的问题，(参考这篇文章设置)[https://blog.csdn.net/csdnXiaoZou/article/details/84970884]
 
 ## config.json
 ```
@@ -149,6 +223,56 @@ ENGINE=InnoDB
     ]
 }
 ```
+
+## API
+当前系统默认对外提供的接口如下（端口默认27999）
+### 查询用户积分
+```
+POST:
+http://localhost:27999/douyu/point/5189167/query_by_uid
+Header: {Content-Type: application/x-www-form-urlencoded}
+Body: token=<斗鱼的token>
+成功返回示例: {"error":0,"msg":"success","data":[{"uid":1825394,"id":"小淳丿","point":4,"update_time":"2020-07-07 22:31:32"}]}
+```
+
+### 查询兑换的物品列表
+```
+POST:
+http://localhost:27999/douyu/point/5189167/query_item
+Header: {Content-Type: application/x-www-form-urlencoded}
+Body: token=<斗鱼的token>&offset=<limit是10>
+成功返回示例: {"error":0,"msg":"success","data":[{"id":1,"name":"淳宝飞吻","description":"mua~","pic":"www.baidu.com","price":20,"num":99994,"update_time":"2020-07-07 22:31:32"},{"id":2,"name":"测试礼物","description":"222","pic":"www.baidu.com","price":1,"num":0,"update_time":"2020-07-07 18:04:14"},{"id":54,"name":"试试","description":"测试用的","pic":"www.baidu.com","price":1,"num":0,"update_time":"2020-07-07 22:14:19"},{"id":5777,"name":"免费的","description":"芜湖","pic":"www.baidu.com","price":0,"num":46,"update_time":"2020-07-07 22:13:50"}]}
+```
+
+### 兑换物品
+```
+POST:
+http://localhost:27999/douyu/point/5189167/exchange
+Header: {Content-Type: application/x-www-form-urlencoded}
+Body: token=<斗鱼的token>&item_id=<兑换物品的id>&id=<用户的斗鱼昵称>&info=<备注信息,用于填写联系方式>
+成功返回示例: {"error":0,"msg":"兑换成功","data":[{"uid":1825394,"id":"小淳丿","point":4,"update_time":"2020-07-07 23:19:16"}]}
+```
+
+
+## 更新内容
+
+### 2020年7月7日
+1. 新增物品兑换功能与一系列接口
+
+### 2020年7月6日
+1. 修复default规则有误的BUG
+2. 优化代码
+3. 新增查询用户积分接口
+
+### 2020年7月5日
+1. rule规则新增cd字段（单位：秒），用于设置某个规则的冷却时间，可实现例如：1小时内只能打一次卡
+
+### 2020年6月29日
+1. 修复无法变更直播间开播状态的BUG
+
+
+--------------------------
+
 ## rules模板
 ``` json
 // 下面是模板，可依照模板定制个性化的积分规则
@@ -259,16 +383,3 @@ ENGINE=InnoDB
   ]
 }
 ```
-
-## 更新内容
-
-### 2020年7月6日
-1. 修复default规则有误的BUG
-2. 优化代码
-3. 新增查询用户积分接口
-
-### 2020年7月5日
-1. rule规则新增cd字段（单位：秒），用于设置某个规则的冷却时间，可实现例如：1小时内只能打一次卡
-
-### 2020年6月29日
-1. 修复无法变更直播间开播状态的BUG
