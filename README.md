@@ -165,7 +165,7 @@ COLLATE='utf8_general_ci'
 ENGINE=InnoDB
 ;
 ```
-5. 为了防止出现Incorrect string value: '\xF0\x9F\x90\xB7' for column的问题，(参考这篇文章设置)[https://blog.csdn.net/csdnXiaoZou/article/details/84970884]
+5. 为了防止出现Incorrect string value: '\xF0\x9F\x90\xB7' for column的问题，[参考这篇文章设置](https://blog.csdn.net/csdnXiaoZou/article/details/84970884)
 
 ## config.json
 ```
