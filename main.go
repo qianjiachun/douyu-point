@@ -9,6 +9,7 @@ import (
 	"douyu-point/msg"
 	"encoding/json"
 	"fmt"
+	"github.com/yudeguang/ratelimit"
 	"io/ioutil"
 	"time"
 
@@ -50,6 +51,8 @@ func main() {
 	c.Start()
 
 	fmt.Println("=> 服务启动成功")
+
+	setRateLimit()
 
 	apis.Init_apis()
 
@@ -93,4 +96,10 @@ func cmdPanel() {
 			fmt.Println("无效的命令，请尝试输入help获取命令")
 		}
 	}
+}
+func setRateLimit() {
+	global.RateLimit = ratelimit.NewRule()
+	global.RateLimit.AddRule(time.Second*10, 5)
+	global.RateLimit.AddRule(time.Minute*30, 50)
+	global.RateLimit.AddRule(time.Hour*24, 500)
 }

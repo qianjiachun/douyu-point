@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="41f1fede-6394-421e-8b7e-6627d65cf2ec" name="默认更改列表" comment="新增物品兑换接口">
-      <change afterPath="$PROJECT_DIR$/apis/room/query_exchange.go" afterDir="false" />
+    <list default="true" id="41f1fede-6394-421e-8b7e-6627d65cf2ec" name="默认更改列表" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/apis.go" beforeDir="false" afterPath="$PROJECT_DIR$/apis/apis.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/apis_common/apis_common.go" beforeDir="false" afterPath="$PROJECT_DIR$/apis/apis_common/apis_common.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apis/room/exchange.go" beforeDir="false" afterPath="$PROJECT_DIR$/apis/room/exchange.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/exchanges.go" beforeDir="false" afterPath="$PROJECT_DIR$/db/exchanges.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/points.go" beforeDir="false" afterPath="$PROJECT_DIR$/db/points.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/dist/config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/room/query_by_uid.go" beforeDir="false" afterPath="$PROJECT_DIR$/apis/room/query_by_uid.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/room/query_exchange.go" beforeDir="false" afterPath="$PROJECT_DIR$/apis/room/query_exchange.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/room/query_item.go" beforeDir="false" afterPath="$PROJECT_DIR$/apis/room/query_item.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/items.go" beforeDir="false" afterPath="$PROJECT_DIR$/db/items.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/douyu-point_linux" beforeDir="false" afterPath="$PROJECT_DIR$/dist/douyu-point_linux" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/douyu-point_win.exe" beforeDir="false" afterPath="$PROJECT_DIR$/dist/douyu-point_win.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/struct.go" beforeDir="false" afterPath="$PROJECT_DIR$/global/struct.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/global.go" beforeDir="false" afterPath="$PROJECT_DIR$/global/global.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -141,7 +144,8 @@
     <MESSAGE value="1. 修复default规则有误的BUG&#10;2. 优化代码" />
     <MESSAGE value="新增查分" />
     <MESSAGE value="新增物品兑换接口" />
-    <option name="LAST_COMMIT_MESSAGE" value="新增物品兑换接口" />
+    <MESSAGE value="新增查询物品兑换记录接口" />
+    <option name="LAST_COMMIT_MESSAGE" value="新增查询物品兑换记录接口" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>

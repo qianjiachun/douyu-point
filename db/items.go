@@ -16,6 +16,16 @@ func QueryItemByPage(offset string) []global.Item {
 	}
 	return items
 }
+func QueryItem() []global.Item {
+	var items []global.Item
+	var item global.Item
+	rows, _ := global.DB.Query("select * from items")
+	for rows.Next() {
+		_ = rows.Scan(&item.Id, &item.Name, &item.Description, &item.Pic, &item.Price, &item.Num, &item.UpdateTime)
+		items = append(items, item)
+	}
+	return items
+}
 
 func QueryItemById(tx *sql.Tx, id string) (global.Item, bool) {
 	// 事务函数，请在事务内使用

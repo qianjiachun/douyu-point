@@ -11,25 +11,35 @@ import (
 )
 
 func Api_queryItem(writer http.ResponseWriter, request *http.Request) {
-	// post数据: token offset
+	// post数据: token
 	// token 斗鱼token
-	// offset 位置
+	var ret *global.ItemJson
+	ret = new(global.ItemJson)
 
 	writer.Header().Set("Access-Control-Allow-Origin", "*")             // 跨域 "*"表示接受任意域名的请求，这个值也可以根据自己需要，设置成不同域名
 	writer.Header().Add("Access-Control-Allow-Headers", "Content-Type") //header的类型
 	writer.Header().Set("content-type", "application/json")             //返回数据格式是json
 
-	var ret *global.ItemJson
-	ret = new(global.ItemJson)
+	// 频率检测
+	if global.RateLimit.AllowVisitByIP4(apis_common.RemoteIp(request)) == false {
+		ret.Error = 2
+		ret.Msg = "too frequent visits"
+		ret.Data = nil
+		bytes, err := json.Marshal(ret)
+		common.CheckErrNoExit(err)
 
+		_, _ = fmt.Fprint(writer, string(bytes))
+		return
+	}
+
+	// 业务代码
 	dyToken := request.PostFormValue("token")
-	offset := request.PostFormValue("offset")
 	isValid := apis_common.VerifyDyToken(dyToken)
 
 	if isValid {
 		ret.Error = 0
 		ret.Msg = "success"
-		ret.Data = db.QueryItemByPage(offset)
+		ret.Data = db.QueryItem()
 	} else {
 		ret.Error = 1
 		ret.Msg = "invalid token"

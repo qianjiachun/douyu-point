@@ -13,16 +13,27 @@ import (
 
 func Api_queryByUid(writer http.ResponseWriter, request *http.Request) {
 	// post数据: token=<斗鱼的token>
+	var ret *global.UserInfoJson
+	ret = new(global.UserInfoJson)
 
 	writer.Header().Set("Access-Control-Allow-Origin", "*")             // 跨域 "*"表示接受任意域名的请求，这个值也可以根据自己需要，设置成不同域名
 	writer.Header().Add("Access-Control-Allow-Headers", "Content-Type") //header的类型
 	writer.Header().Set("content-type", "application/json")             //返回数据格式是json
 
-	var ret *global.UserInfoJson
+	// 频率检测
+	if global.RateLimit.AllowVisitByIP4(apis_common.RemoteIp(request)) == false {
+		ret.Error = 2
+		ret.Msg = "too frequent visits"
+		ret.Data = nil
+		bytes, err := json.Marshal(ret)
+		common.CheckErrNoExit(err)
+
+		_, _ = fmt.Fprint(writer, string(bytes))
+		return
+	}
+
+	// 业务代码
 	var uid string
-
-	ret = new(global.UserInfoJson)
-
 	dyToken := request.PostFormValue("token")
 	isValid := apis_common.VerifyDyToken(dyToken)
 
