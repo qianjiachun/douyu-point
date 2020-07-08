@@ -17,7 +17,7 @@ func QueryExchangeByUidAndOffset(uid string, offset string) []global.Exchange {
 	var item global.Exchange
 	rows, _ := global.DB.Query("select * from exchanges where uid = ? limit 10 offset ?", uid, offset)
 	for rows.Next() {
-		_ = rows.Scan(&item.Status, &item.Uid, &item.Id, &item.Item_id, &item.Item_name, &item.Item_pic, &item.Item_description, &item.Item_price, &item.Info, &item.UpdateTime)
+		_ = rows.Scan(&item.Status, &item.Uid, &item.Id, &item.Item_id, &item.Item_name, &item.Item_price, &item.Info, &item.UpdateTime)
 		items = append(items, item)
 	}
 	return items

@@ -92,16 +92,14 @@ type ItemExchangeJson struct { // 返回给前端的结构
 	数据库exchanges表的字段
 */
 type Exchange struct {
-	Status           int    `json:"status"`
-	Uid              int    `json:"uid"`
-	Id               string `json:"id"`
-	Item_id          int    `json:"item_id"`
-	Item_name        string `json:"item_name"`
-	Item_pic         string `json:"item_pic"`
-	Item_description string `json:"item_description"`
-	Item_price       int    `json:"price"`
-	Info             string `json:"info"`
-	UpdateTime       string `json:"update_time"`
+	Status     int    `json:"status"`
+	Uid        int    `json:"uid"`
+	Id         string `json:"id"`
+	Item_id    int    `json:"item_id"`
+	Item_name  string `json:"item_name"`
+	Item_price int    `json:"price"`
+	Info       string `json:"info"`
+	UpdateTime string `json:"update_time"`
 }
 
 type ExchangeJson struct {

@@ -31,22 +31,22 @@
 ```
 CREATE TABLE `points` (
 	`uid` BIGINT(20) NOT NULL DEFAULT '0',
-	`id` VARCHAR(50) NULL DEFAULT NULL,
+	`id` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_unicode_ci',
 	`point` BIGINT(20) NULL DEFAULT NULL,
 	`update_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	PRIMARY KEY (`uid`),
 	INDEX `index_id` (`id`),
 	INDEX `index_point` (`point`)
 )
-COLLATE='utf8_general_ci'
+COLLATE='utf8mb4_bin'
 ENGINE=InnoDB
 ;
 
 CREATE TABLE `items` (
 	`id` INT(11) NOT NULL DEFAULT '0' COMMENT '物品id',
-	`name` TEXT NULL COMMENT '物品名称',
-	`description` TEXT NULL COMMENT '物品描述',
-	`pic` TEXT NULL COMMENT '物品图片地址',
+	`name` VARCHAR(255) NULL DEFAULT NULL COMMENT '物品名称' COLLATE 'utf8mb4_unicode_ci',
+	`description` VARCHAR(255) NULL DEFAULT NULL COMMENT '物品描述' COLLATE 'utf8mb4_unicode_ci',
+	`pic` VARCHAR(255) NULL DEFAULT NULL COMMENT '物品图片地址',
 	`price` BIGINT(20) NULL DEFAULT NULL COMMENT '物品价格',
 	`num` INT(11) NULL DEFAULT NULL COMMENT '物品数量',
 	`update_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -58,21 +58,24 @@ ENGINE=InnoDB
 ;
 
 CREATE TABLE `exchanges` (
+	`status` INT(11) NOT NULL DEFAULT '0' COMMENT '状态 0未处理 1已处理',
 	`uid` BIGINT(20) NOT NULL DEFAULT '0' COMMENT '用户uid',
-	`id` VARCHAR(50) NULL DEFAULT NULL COMMENT '用户id',
+	`id` VARCHAR(50) NULL DEFAULT NULL COMMENT '用户id' COLLATE 'utf8mb4_unicode_ci',
 	`item_id` INT(11) NULL DEFAULT NULL COMMENT '物品id',
-	`item_name` TEXT NULL COMMENT '物品名称',
+	`item_name` VARCHAR(255) NULL DEFAULT NULL COMMENT '物品名称' COLLATE 'utf8mb4_unicode_ci',
 	`item_price` BIGINT(20) NULL DEFAULT NULL COMMENT '物品价格',
-	`info` TEXT NULL COMMENT '兑换备注信息',
+	`info` VARCHAR(255) NULL DEFAULT NULL COMMENT '兑换备注信息' COLLATE 'utf8mb4_unicode_ci',
 	`update_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
 	INDEX `index_id` (`id`),
 	INDEX `index_item_id` (`item_id`),
-	INDEX `index_uid` (`uid`)
+	INDEX `index_uid` (`uid`),
+	INDEX `index_status` (`status`)
 )
 COMMENT='兑换记录'
-COLLATE='utf8_general_ci'
+COLLATE='utf8mb4_unicode_ci'
 ENGINE=InnoDB
 ;
+
 
 ```
 
@@ -158,8 +161,6 @@ CREATE TABLE `exchanges` (
 	`id` VARCHAR(50) NULL DEFAULT NULL COMMENT '用户id' COLLATE 'utf8mb4_unicode_ci',
 	`item_id` INT(11) NULL DEFAULT NULL COMMENT '物品id',
 	`item_name` VARCHAR(255) NULL DEFAULT NULL COMMENT '物品名称' COLLATE 'utf8mb4_unicode_ci',
-	`item_pic` VARCHAR(255) NULL DEFAULT NULL COMMENT '物品图片' COLLATE 'utf8mb4_unicode_ci',
-	`item_description` VARCHAR(255) NULL DEFAULT NULL COMMENT '物品描述' COLLATE 'utf8mb4_unicode_ci',
 	`item_price` BIGINT(20) NULL DEFAULT NULL COMMENT '物品价格',
 	`info` VARCHAR(255) NULL DEFAULT NULL COMMENT '兑换备注信息' COLLATE 'utf8mb4_unicode_ci',
 	`update_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -172,6 +173,7 @@ COMMENT='兑换记录'
 COLLATE='utf8mb4_unicode_ci'
 ENGINE=InnoDB
 ;
+
 
 
 ```
@@ -302,6 +304,7 @@ Body: token=<斗鱼的token>&offset=<limit是10>
 
 ### 2020年7月9日
 1. 为接口增加ratelimit，限制IP访问频率
+2. 删除exchanges表内description和pic字段
 
 ### 2020年7月8日
 1. 数据库添加了支持emoji的规则，详细请看上方Mysql部署步骤
