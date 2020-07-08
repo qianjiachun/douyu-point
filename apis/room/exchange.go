@@ -37,8 +37,8 @@ func Api_exchange(writer http.ResponseWriter, request *http.Request) {
 	writer.Header().Add("Access-Control-Allow-Headers", "Content-Type") //header的类型
 	writer.Header().Set("content-type", "application/json")             //返回数据格式是json
 
-	dyToken := request.PostFormValue("token")
 	var uid string
+	dyToken := request.PostFormValue("token")
 	item_id := request.PostFormValue("item_id")
 	id := request.PostFormValue("id")
 	info := request.PostFormValue("info")

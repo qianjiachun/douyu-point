@@ -12,6 +12,7 @@ func Init_apis() {
 	http.HandleFunc("/douyu/point/5189167/query_by_uid", room.Api_queryByUid)
 	http.HandleFunc("/douyu/point/5189167/exchange", room.Api_exchange)
 	http.HandleFunc("/douyu/point/5189167/query_item", room.Api_queryItem)
+	http.HandleFunc("/douyu/point/5189167/query_exchange", room.Api_queryExchange)
 	err := http.ListenAndServe(":27999", nil)
 	common.CheckErr(err)
 }

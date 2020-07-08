@@ -87,6 +87,15 @@ ENGINE=InnoDB
 2. 重启软件会造成limit重置，也就是每日积分增加的次数限制都会重置
 3. 软件目前没有实现服务自动重启功能。若遇到数据库崩溃、斗鱼服务器崩溃等不可抗因素导致软件退出运行，还请自行处理后续。
 
+### 如何设置/增加兑换的物品
+1. 在数据库items表内按字段备注设置物品相关信息即可
+2. 备注不清楚的可以查看下方mysql部署步骤中的代码
+3. 图片地址请尽量使用图床保存
+
+### 如何查看用户兑换物品的信息以及发货
+1. 在数据库exchanges表内显示所有用户的兑换信息
+2. 每个记录的status字段表示物品发货状态，0表示没有发货，1表示已发货
+3. 发货请在后台手动设置status的值（0改成1）
 
 -------------------------------
 
@@ -98,7 +107,7 @@ ENGINE=InnoDB
 5. 本项目只完成了原型，更多的功能和HTTP接口请自行实现
 
 -------------------------------
-## MySQL数据库
+## MySQL数据库部署步骤
 1. 创建table
 ```
 points // 用户积分
@@ -107,22 +116,16 @@ exchanges // 兑换记录
 ```
 2. points表
 ```
-字段:
-uid // 用户uid BIGINT(20) 主键 无默认值
-id // 用户id VARCHAR(50)
-point // 用户积分 BIGINT(20)
-update_time // 更新时间
-
 CREATE TABLE `points` (
 	`uid` BIGINT(20) NOT NULL DEFAULT '0',
-	`id` VARCHAR(50) NULL DEFAULT NULL,
+	`id` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_unicode_ci',
 	`point` BIGINT(20) NULL DEFAULT NULL,
 	`update_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	PRIMARY KEY (`uid`),
 	INDEX `index_id` (`id`),
 	INDEX `index_point` (`point`)
 )
-COLLATE='utf8_general_ci'
+COLLATE='utf8mb4_bin'
 ENGINE=InnoDB
 ;
 
@@ -132,9 +135,9 @@ ENGINE=InnoDB
 ```
 CREATE TABLE `items` (
 	`id` INT(11) NOT NULL DEFAULT '0' COMMENT '物品id',
-	`name` TEXT NULL COMMENT '物品名称',
-	`description` TEXT NULL COMMENT '物品描述',
-	`pic` TEXT NULL COMMENT '物品图片地址',
+	`name` VARCHAR(255) NULL DEFAULT NULL COMMENT '物品名称' COLLATE 'utf8mb4_unicode_ci',
+	`description` VARCHAR(255) NULL DEFAULT NULL COMMENT '物品描述' COLLATE 'utf8mb4_unicode_ci',
+	`pic` VARCHAR(255) NULL DEFAULT NULL COMMENT '物品图片地址',
 	`price` BIGINT(20) NULL DEFAULT NULL COMMENT '物品价格',
 	`num` INT(11) NULL DEFAULT NULL COMMENT '物品数量',
 	`update_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -144,28 +147,61 @@ COMMENT='兑换物品列表'
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB
 ;
+
 ```
 
 4. exchanges表
 ```
 CREATE TABLE `exchanges` (
+	`status` INT(11) NOT NULL DEFAULT '0' COMMENT '状态 0未处理 1已处理',
 	`uid` BIGINT(20) NOT NULL DEFAULT '0' COMMENT '用户uid',
-	`id` VARCHAR(50) NULL DEFAULT NULL COMMENT '用户id',
+	`id` VARCHAR(50) NULL DEFAULT NULL COMMENT '用户id' COLLATE 'utf8mb4_unicode_ci',
 	`item_id` INT(11) NULL DEFAULT NULL COMMENT '物品id',
-	`item_name` TEXT NULL COMMENT '物品名称',
+	`item_name` VARCHAR(255) NULL DEFAULT NULL COMMENT '物品名称' COLLATE 'utf8mb4_unicode_ci',
+	`item_pic` VARCHAR(255) NULL DEFAULT NULL COMMENT '物品图片' COLLATE 'utf8mb4_unicode_ci',
+	`item_description` VARCHAR(255) NULL DEFAULT NULL COMMENT '物品描述' COLLATE 'utf8mb4_unicode_ci',
 	`item_price` BIGINT(20) NULL DEFAULT NULL COMMENT '物品价格',
-	`info` TEXT NULL COMMENT '兑换备注信息',
+	`info` VARCHAR(255) NULL DEFAULT NULL COMMENT '兑换备注信息' COLLATE 'utf8mb4_unicode_ci',
 	`update_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
 	INDEX `index_id` (`id`),
 	INDEX `index_item_id` (`item_id`),
-	INDEX `index_uid` (`uid`)
+	INDEX `index_uid` (`uid`),
+	INDEX `index_status` (`status`)
 )
 COMMENT='兑换记录'
-COLLATE='utf8_general_ci'
+COLLATE='utf8mb4_unicode_ci'
 ENGINE=InnoDB
 ;
+
+
 ```
-5. 为了防止出现Incorrect string value: '\xF0\x9F\x90\xB7' for column的问题，[参考这篇文章设置](https://blog.csdn.net/csdnXiaoZou/article/details/84970884)
+5. 支持emoji
+[参考这篇文章设置](https://www.jianshu.com/p/48c3fbf28ea1)
+```
+1. 修改mysql配置文件my.cnf
+[client]
+default-character-set = utf8mb4
+
+[mysql]
+default-character-set = utf8mb4
+
+[mysqld]
+character-set-client-handshake = FALSE
+character-set-server = utf8mb4
+collation-server = utf8mb4_unicode_ci
+init_connect='SET NAMES utf8mb4'
+
+2. 重启mysql服务
+
+3. 修改数据库的字符集
+ALTER DATABASE douyu_point CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+
+4. golang连接mysql时带上以下参数
+charset=utf8mb4&collation=utf8mb4_unicode_ci
+例如: root:qianjiachun@/douyu_point?charset=utf8mb4&collation=utf8mb4_unicode_ci
+
+```
+
 
 ## config.json
 ```
@@ -174,7 +210,7 @@ ENGINE=InnoDB
 // 用于指定监听的直播间，数据库地址，规则地址
 {
 	room_id: "", // 房间号，必须是真实房间号
-	mysql_url: "", // mysql数据库地址，格式必须为golang连接mysql的url格式
+	mysql_url: "", // mysql数据库地址，格式必须为golang连接mysql的url格式 注意带上参数charset=utf8mb4&collation=utf8mb4_unicode_ci以支持emoji
 	rules: "./rules.json", // 规则地址
 }
 ```
@@ -253,8 +289,20 @@ Body: token=<斗鱼的token>&item_id=<兑换物品的id>&id=<用户的斗鱼昵�
 成功返回示例: {"error":0,"msg":"兑换成功","data":[{"uid":1825394,"id":"小淳丿","point":4,"update_time":"2020-07-07 23:19:16"}]}
 ```
 
+### 查询用户物品兑换记录
+```
+POST:
+http://localhost:27999/douyu/point/5189167/query_exchange
+Header: {Content-Type: application/x-www-form-urlencoded}
+Body: token=<斗鱼的token>&offset=<limit是10>
+成功返回示例: {"error":0,"msg":"success","data":[{"status":0,"uid":1825394,"id":"小淳丿","item_id":1,"item_name":"测试礼物","item_pic":"","item_description":"","price":0,"info":"","update_time":""},{"status":1,"uid":1825394,"id":"小淳丿","item_id":1,"item_name":"测试礼物321","item_pic":"","item_description":"","price":0,"info":"","update_time":""}]}
+```
 
 ## 更新内容
+
+### 2020年7月8日
+1. 数据库添加了支持emoji的规则，详细请看上方Mysql部署步骤
+2. 新增查询用户物品兑换记录的接口
 
 ### 2020年7月7日
 1. 新增物品兑换功能与一系列接口

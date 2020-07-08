@@ -1,5 +1,5 @@
 {
-  "room_id": "6416853",
-  "mysql_url": "root:qianjiachun@/douyu_point?charset=utf8",
+  "room_id": "5189167",
+  "mysql_url": "root:qianjiachun@/douyu_point?charset=utf8mb4&collation=utf8mb4_unicode_ci",
   "rules": "./rules.json"
 }

@@ -38,6 +38,7 @@ func UpdateUserPointByUid(tx *sql.Tx, uid string, point string) bool {
 }
 
 func QueryUserInfoByUid_Work(tx *sql.Tx, uid string) (global.UserInfo, bool) {
+	// 事务函数，请在事务内使用
 	var item global.UserInfo
 	row := tx.QueryRow("select * from points where uid = ?", uid)
 	err := row.Scan(&item.Uid, &item.Id, &item.Point, &item.UpdateTime)
