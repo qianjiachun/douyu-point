@@ -99,6 +99,6 @@ func cmdPanel() {
 }
 func setRateLimit() {
 	global.RateLimit = ratelimit.NewRule()
-	global.RateLimit.AddRule(time.Second*10, 7)
+	global.RateLimit.AddRule(time.Second*10, 5)
 	global.RateLimit.AddRule(time.Hour*24, 500)
 }

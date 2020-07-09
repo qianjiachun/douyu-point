@@ -3,12 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="41f1fede-6394-421e-8b7e-6627d65cf2ec" name="默认更改列表" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/exchanges.go" beforeDir="false" afterPath="$PROJECT_DIR$/db/exchanges.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/items.go" beforeDir="false" afterPath="$PROJECT_DIR$/db/items.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/points.go" beforeDir="false" afterPath="$PROJECT_DIR$/db/points.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/douyu-point_linux" beforeDir="false" afterPath="$PROJECT_DIR$/dist/douyu-point_linux" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/douyu-point_win.exe" beforeDir="false" afterPath="$PROJECT_DIR$/dist/douyu-point_win.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -141,7 +135,8 @@
     <MESSAGE value="新增查询物品兑换记录接口" />
     <MESSAGE value="为接口增加ratelimit，限制IP访问频率" />
     <MESSAGE value="数据库调整" />
-    <option name="LAST_COMMIT_MESSAGE" value="数据库调整" />
+    <MESSAGE value="修改了ratelimit规则" />
+    <option name="LAST_COMMIT_MESSAGE" value="修改了ratelimit规则" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
