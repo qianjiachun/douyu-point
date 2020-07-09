@@ -23,7 +23,7 @@ func QueryUserInfoByUid(uid string) []global.UserInfo {
 func QueryUserInfoById(id string) []global.UserInfo {
 	var items []global.UserInfo
 	var item global.UserInfo
-	rows, _ := global.DB.Query("select * from points where id like ?", "%"+id+"%")
+	rows, _ := global.DB.Query("select * from points where id like ? order by update_time desc", "%"+id+"%")
 	for rows.Next() {
 		_ = rows.Scan(&item.Uid, &item.Id, &item.Point, &item.UpdateTime)
 		items = append(items, item)

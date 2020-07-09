@@ -305,6 +305,8 @@ Body: token=<斗鱼的token>&offset=<limit是10>
 ### 2020年7月9日
 1. 为接口增加ratelimit，限制IP访问频率
 2. 删除exchanges表内description和pic字段
+3. 修改了rateLimit规则
+4. 接口返回按时间从新到旧排序
 
 ### 2020年7月8日
 1. 数据库添加了支持emoji的规则，详细请看上方Mysql部署步骤

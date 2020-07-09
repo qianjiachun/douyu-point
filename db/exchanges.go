@@ -15,7 +15,7 @@ func InsertExchange(tx *sql.Tx, uid, id, item_id, item_name, item_price, info st
 func QueryExchangeByUidAndOffset(uid string, offset string) []global.Exchange {
 	var items []global.Exchange
 	var item global.Exchange
-	rows, _ := global.DB.Query("select * from exchanges where uid = ? limit 10 offset ?", uid, offset)
+	rows, _ := global.DB.Query("select * from exchanges where uid = ? order by update_time desc limit 10 offset ?", uid, offset)
 	for rows.Next() {
 		_ = rows.Scan(&item.Status, &item.Uid, &item.Id, &item.Item_id, &item.Item_name, &item.Item_price, &item.Info, &item.UpdateTime)
 		items = append(items, item)

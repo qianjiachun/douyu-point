@@ -9,7 +9,7 @@ import (
 func QueryItemByPage(offset string) []global.Item {
 	var items []global.Item
 	var item global.Item
-	rows, _ := global.DB.Query("select * from items limit 10 offset ?", offset)
+	rows, _ := global.DB.Query("select * from items order by update_time desc limit 10 offset ?", offset)
 	for rows.Next() {
 		_ = rows.Scan(&item.Id, &item.Name, &item.Description, &item.Pic, &item.Price, &item.Num, &item.UpdateTime)
 		items = append(items, item)
@@ -19,7 +19,7 @@ func QueryItemByPage(offset string) []global.Item {
 func QueryItem() []global.Item {
 	var items []global.Item
 	var item global.Item
-	rows, _ := global.DB.Query("select * from items")
+	rows, _ := global.DB.Query("select * from items order by update_time desc")
 	for rows.Next() {
 		_ = rows.Scan(&item.Id, &item.Name, &item.Description, &item.Pic, &item.Price, &item.Num, &item.UpdateTime)
 		items = append(items, item)

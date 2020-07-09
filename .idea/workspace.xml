@@ -5,9 +5,11 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db/exchanges.go" beforeDir="false" afterPath="$PROJECT_DIR$/db/exchanges.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/items.go" beforeDir="false" afterPath="$PROJECT_DIR$/db/items.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/points.go" beforeDir="false" afterPath="$PROJECT_DIR$/db/points.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/douyu-point_linux" beforeDir="false" afterPath="$PROJECT_DIR$/dist/douyu-point_linux" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/douyu-point_win.exe" beforeDir="false" afterPath="$PROJECT_DIR$/dist/douyu-point_win.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/struct.go" beforeDir="false" afterPath="$PROJECT_DIR$/global/struct.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -64,12 +66,12 @@
     <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\易语言\最近\源码\斗鱼直播间积分系统\douyu-point\client" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\易语言\最近\源码\斗鱼直播间积分系统\douyu-point\dist" />
       <recent name="E:\易语言\最近\源码\斗鱼直播间积分系统\douyu-point\msg\basic" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\易语言\最近\源码\斗鱼直播间积分系统\douyu-point\client" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -138,7 +140,8 @@
     <MESSAGE value="新增物品兑换接口" />
     <MESSAGE value="新增查询物品兑换记录接口" />
     <MESSAGE value="为接口增加ratelimit，限制IP访问频率" />
-    <option name="LAST_COMMIT_MESSAGE" value="为接口增加ratelimit，限制IP访问频率" />
+    <MESSAGE value="数据库调整" />
+    <option name="LAST_COMMIT_MESSAGE" value="数据库调整" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
