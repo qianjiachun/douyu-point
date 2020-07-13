@@ -45,3 +45,14 @@ func QueryUserInfoByUid_Work(tx *sql.Tx, uid string) (global.UserInfo, bool) {
 
 	return item, common.CheckErrRollback(err, tx)
 }
+
+func QueryPointList() []global.UserInfo {
+	var items []global.UserInfo
+	var item global.UserInfo
+	rows, _ := global.DB.Query("select * from points order by point desc limit 20")
+	for rows.Next() {
+		_ = rows.Scan(&item.Uid, &item.Id, &item.Point, &item.UpdateTime)
+		items = append(items, item)
+	}
+	return items
+}
