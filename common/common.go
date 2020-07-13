@@ -28,15 +28,15 @@ func HttpGet(url string) string {
 func HttpPost(url string, data string) string {
 	client := &http.Client{Timeout: 5 * time.Second}
 	req, err := http.NewRequest("POST", url, strings.NewReader(data))
-	CheckErr(err)
+	CheckErrNoExit(err)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	response, err := client.Do(req)
-	CheckErr(err)
+	CheckErrNoExit(err)
 	defer func() {
 		_ = response.Body.Close()
 	}()
 	bytes, err := ioutil.ReadAll(response.Body)
-	CheckErr(err)
+	CheckErrNoExit(err)
 	return string(bytes)
 }
 
