@@ -26,58 +26,8 @@
 - 不想配置规则，想直接运行看效果
 1. 可以将项目中的dist文件夹上传到服务器，这个是项目的默认模板程序
 2. 修改config.json中mysql_url
-3. 使用下方的代码创建table
+3. 部署mysql服务，使用下方的代码创建table，***并使得mysql数据库支持emoji***，这一步在下面mysql部分有详细步骤
 4. 运行douyu-point
-```
-CREATE TABLE `points` (
-	`uid` BIGINT(20) NOT NULL DEFAULT '0',
-	`id` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_unicode_ci',
-	`point` BIGINT(20) NULL DEFAULT NULL,
-	`update_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-	PRIMARY KEY (`uid`),
-	INDEX `index_id` (`id`),
-	INDEX `index_point` (`point`)
-)
-COLLATE='utf8mb4_bin'
-ENGINE=InnoDB
-;
-
-CREATE TABLE `items` (
-	`id` INT(11) NOT NULL DEFAULT '0' COMMENT '物品id',
-	`name` VARCHAR(255) NULL DEFAULT NULL COMMENT '物品名称' COLLATE 'utf8mb4_unicode_ci',
-	`description` VARCHAR(255) NULL DEFAULT NULL COMMENT '物品描述' COLLATE 'utf8mb4_unicode_ci',
-	`pic` VARCHAR(255) NULL DEFAULT NULL COMMENT '物品图片地址',
-	`price` BIGINT(20) NULL DEFAULT NULL COMMENT '物品价格',
-	`num` INT(11) NULL DEFAULT NULL COMMENT '物品数量',
-	`update_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-	PRIMARY KEY (`id`)
-)
-COMMENT='兑换物品列表'
-COLLATE='utf8_general_ci'
-ENGINE=InnoDB
-;
-
-CREATE TABLE `exchanges` (
-	`status` INT(11) NOT NULL DEFAULT '0' COMMENT '状态 0未处理 1已处理',
-	`uid` BIGINT(20) NOT NULL DEFAULT '0' COMMENT '用户uid',
-	`id` VARCHAR(50) NULL DEFAULT NULL COMMENT '用户id' COLLATE 'utf8mb4_unicode_ci',
-	`item_id` INT(11) NULL DEFAULT NULL COMMENT '物品id',
-	`item_name` VARCHAR(255) NULL DEFAULT NULL COMMENT '物品名称' COLLATE 'utf8mb4_unicode_ci',
-	`item_price` BIGINT(20) NULL DEFAULT NULL COMMENT '物品价格',
-	`info` VARCHAR(255) NULL DEFAULT NULL COMMENT '兑换备注信息' COLLATE 'utf8mb4_unicode_ci',
-	`update_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-	INDEX `index_id` (`id`),
-	INDEX `index_item_id` (`item_id`),
-	INDEX `index_uid` (`uid`),
-	INDEX `index_status` (`status`)
-)
-COMMENT='兑换记录'
-COLLATE='utf8mb4_unicode_ci'
-ENGINE=InnoDB
-;
-
-
-```
 
 ### 如何修改积分规则(rules.json)?
 1. 可按照模板/标准配置，手动或者访问[json在线编辑](http://json.la/online.html)对积分规则(rules.json)进行修改
@@ -89,6 +39,15 @@ ENGINE=InnoDB
 1. 首先并不建议重启软件，除非你要修改config.json
 2. 重启软件会造成limit重置，也就是每日积分增加的次数限制都会重置
 3. 软件目前没有实现服务自动重启功能。若遇到数据库崩溃、斗鱼服务器崩溃等不可抗因素导致软件退出运行，还请自行处理后续。
+
+### 如何安全的重启服务？
+1. 保存limit数据，输入命令saveLimit
+2. 输入exit提出程序
+3. 重启程序
+4. 输入命令loadLimit加载limit数据
+
+### 命令有哪些？
+1. 请输入help然后回车查看
 
 ### 如何设置/增加兑换的物品
 1. 在数据库items表内按字段备注设置物品相关信息即可
@@ -301,6 +260,11 @@ Body: token=<斗鱼的token>&offset=<limit是10>
 ```
 
 ## 更新内容
+
+### 2020年7月21日
+1. 新增limit状态序列化保存和加载命令，分别是saveLimit和loadLimit
+2. 新增limit数据输出命令，logLimit
+3. 积分榜返回数据个数由20增加到50 
 
 ### 2020年7月9日
 1. 为接口增加ratelimit，限制IP访问频率

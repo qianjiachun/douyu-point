@@ -9,11 +9,11 @@ import (
 	"douyu-point/msg"
 	"encoding/json"
 	"fmt"
+	"github.com/robfig/cron"
 	"github.com/yudeguang/ratelimit"
 	"io/ioutil"
+	"os"
 	"time"
-
-	"github.com/robfig/cron"
 )
 
 func main() {
@@ -51,9 +51,7 @@ func main() {
 	c.Start()
 
 	fmt.Println("=> 服务启动成功")
-
 	setRateLimit()
-
 	apis.Init_apis()
 
 }
@@ -87,10 +85,43 @@ func cmdPanel() {
 			cmd = ""
 			fmt.Println("reload : 重新载入rules文件")
 			fmt.Println("resetLimit : 重置所有limit次数")
+			fmt.Println("saveLimit : 保存limit状态")
+			fmt.Println("loadLimit : 恢复limit状态")
+			fmt.Println("logLimit : 输出limit数据")
+			fmt.Println("exit : 退出程序")
 		} else if cmd == "resetLimit" {
 			cmd = ""
 			global.List = make(map[string]map[string]*global.InfoUid)
 			fmt.Println("limit重置完毕")
+		} else if cmd == "saveLimit" {
+			cmd = ""
+			data, err := json.Marshal(global.List)
+			common.CheckErrNoExit(err)
+			f, err := os.OpenFile("./limit_bak", os.O_RDWR|os.O_CREATE, 0600)
+			common.CheckErrNoExit(err)
+			_, err = f.Write(data)
+			common.CheckErrNoExit(err)
+			_ = f.Close()
+			println("limit保存成功")
+		} else if cmd == "loadLimit" {
+			cmd = ""
+			if common.IsFileExist("./limit_bak") {
+				bytes, err := ioutil.ReadFile("./limit_bak")
+				common.CheckErrNoExit(err)
+				err = json.Unmarshal(bytes, &global.List)
+				common.CheckErrNoExit(err)
+				println("limit恢复成功")
+			} else {
+				println("未找到limit_bak")
+			}
+		} else if cmd == "logLimit" {
+			cmd = ""
+			data, err := json.Marshal(global.List)
+			common.CheckErr(err)
+			println(string(data))
+		} else if cmd == "exit" {
+			cmd = ""
+			os.Exit(0)
 		} else {
 			cmd = ""
 			fmt.Println("无效的命令，请尝试输入help获取命令")

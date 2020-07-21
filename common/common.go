@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 	"unsafe"
@@ -86,6 +87,16 @@ func CheckErrRollback(err error, tx *sql.Tx) bool {
 			return false
 		}
 		return false
+	}
+	return true
+}
+
+func IsFileExist(path string) bool {
+	_, err := os.Stat(path)
+	if err != nil {
+		if os.IsNotExist(err) {
+			return false
+		}
 	}
 	return true
 }
