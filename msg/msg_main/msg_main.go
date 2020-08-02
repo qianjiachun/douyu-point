@@ -184,13 +184,37 @@ func handleRules(data string, fieldValue string, cnt int, fieldRules []global.Ru
 					newCnt = fieldDeafult.Limit - limitNum
 				}
 				global.List[ruleName][tempUid].Count = limitNum + newCnt
-				tempChange = strconv.Itoa(newCnt * fieldDeafult.Change)
+				if fieldDeafult.IsGiftPrice {
+					gfid := common.GetFieldValue(data, "gfid")
+					var giftPriceChange int
+					if _, ok := global.GiftPrice[gfid]; ok {
+						giftPriceChange = global.GiftPrice[gfid]
+					} else {
+						giftPriceChange = 0
+					}
+					tempChange = strconv.Itoa(newCnt * giftPriceChange)
+				} else {
+					tempChange = strconv.Itoa(newCnt * fieldDeafult.Change)
+				}
+
 				// 插入到数据库
 				db.InsertUserInfo(tempUid, tempId, tempChange)
 			}
 		} else {
 			// 无限制
-			tempChange = strconv.Itoa(cnt * fieldDeafult.Change)
+			if fieldDeafult.IsGiftPrice {
+				gfid := common.GetFieldValue(data, "gfid")
+				var giftPriceChange int
+				if _, ok := global.GiftPrice[gfid]; ok {
+					giftPriceChange = global.GiftPrice[gfid]
+				} else {
+					giftPriceChange = 0
+				}
+				tempChange = strconv.Itoa(cnt * giftPriceChange)
+			} else {
+				tempChange = strconv.Itoa(cnt * fieldDeafult.Change)
+			}
+
 			// 插入到数据库
 			db.InsertUserInfo(tempUid, tempId, tempChange)
 		}

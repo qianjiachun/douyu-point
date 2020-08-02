@@ -2,6 +2,8 @@ package common
 
 import (
 	"database/sql"
+	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -99,4 +101,14 @@ func IsFileExist(path string) bool {
 		}
 	}
 	return true
+}
+
+func JsonToMap(jsonStr string) (map[string]int, error) {
+	m := make(map[string]int)
+	err := json.Unmarshal([]byte(jsonStr), &m)
+	if err != nil {
+		fmt.Printf("Unmarshal with error: %+v\n", err)
+		return nil, err
+	}
+	return m, nil
 }

@@ -20,6 +20,7 @@ func main() {
 	global.List = make(map[string]map[string]*global.InfoUid)
 	loadConfig()
 	loadRules()
+	loadGiftPrice()
 	fmt.Println("======配置项载入完毕======")
 	fmt.Println("直播间号:" + global.Config.RoomID)
 	fmt.Println("获取开播状态中...")
@@ -69,6 +70,12 @@ func loadRules() {
 	err = json.Unmarshal(f, &global.Rules)
 }
 
+func loadGiftPrice() {
+	f, err := ioutil.ReadFile(global.Config.GiftPrice)
+	common.CheckErr(err)
+	global.GiftPrice, _ = common.JsonToMap(string(f))
+}
+
 func cmdPanel() {
 	var cmd string
 	for {
@@ -84,6 +91,7 @@ func cmdPanel() {
 		} else if cmd == "help" {
 			cmd = ""
 			fmt.Println("reload : 重新载入rules文件")
+			fmt.Println("reloadGiftPrice : 重新载入giftPrice文件")
 			fmt.Println("resetLimit : 重置所有limit次数")
 			fmt.Println("saveLimit : 保存limit状态")
 			fmt.Println("loadLimit : 恢复limit状态")
@@ -122,6 +130,10 @@ func cmdPanel() {
 		} else if cmd == "exit" {
 			cmd = ""
 			os.Exit(0)
+		} else if cmd == "reloadGiftPrice" {
+			cmd = ""
+			loadGiftPrice()
+			fmt.Println("giftPrice重载完毕")
 		} else {
 			cmd = ""
 			fmt.Println("无效的命令，请尝试输入help获取命令")

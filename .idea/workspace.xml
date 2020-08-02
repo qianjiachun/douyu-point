@@ -2,13 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="41f1fede-6394-421e-8b7e-6627d65cf2ec" name="默认更改列表" comment="">
+      <change afterPath="$PROJECT_DIR$/dist/gift_price.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/common/common.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/common.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/points.go" beforeDir="false" afterPath="$PROJECT_DIR$/db/points.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/dist/config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/douyu-point_linux" beforeDir="false" afterPath="$PROJECT_DIR$/dist/douyu-point_linux" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/douyu-point_win.exe" beforeDir="false" afterPath="$PROJECT_DIR$/dist/douyu-point_win.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/rules.json" beforeDir="false" afterPath="$PROJECT_DIR$/dist/rules.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/global.go" beforeDir="false" afterPath="$PROJECT_DIR$/global/global.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/struct.go" beforeDir="false" afterPath="$PROJECT_DIR$/global/struct.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/msg/msg_main/msg_main.go" beforeDir="false" afterPath="$PROJECT_DIR$/msg/msg_main/msg_main.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -61,16 +66,17 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/client" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\易语言\最近\源码\斗鱼直播间积分系统\douyu-point\client" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\易语言\最近\源码\斗鱼直播间积分系统\douyu-point\dist" />
       <recent name="E:\易语言\最近\源码\斗鱼直播间积分系统\douyu-point\msg\basic" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\易语言\最近\源码\斗鱼直播间积分系统\douyu-point" />
+      <recent name="E:\易语言\最近\源码\斗鱼直播间积分系统\douyu-point\client" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -142,7 +148,8 @@
     <MESSAGE value="数据库调整" />
     <MESSAGE value="修改了ratelimit规则" />
     <MESSAGE value="新增积分榜接口" />
-    <option name="LAST_COMMIT_MESSAGE" value="新增积分榜接口" />
+    <MESSAGE value="新增limit状态序列化保存和加载命令" />
+    <option name="LAST_COMMIT_MESSAGE" value="新增limit状态序列化保存和加载命令" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>

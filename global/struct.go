@@ -27,17 +27,19 @@ type Rule struct {
 	Cd     int    `json:"cd"`
 }
 type Default struct {
-	Enable bool `json:"enable"`
-	Change int  `json:"change"`
-	Limit  int  `json:"limit"`
-	IsLive bool `json:"isLive"`
-	Cd     int  `json:"cd"`
+	Enable      bool `json:"enable"`
+	Change      int  `json:"change"`
+	Limit       int  `json:"limit"`
+	IsLive      bool `json:"isLive"`
+	Cd          int  `json:"cd"`
+	IsGiftPrice bool `json:"isGiftPrice"`
 }
 
 type _Config struct {
-	RoomID   string `json:"room_id"`
-	MysqlURL string `json:"mysql_url"`
-	Rules    string `json:"rules"`
+	RoomID    string `json:"room_id"`
+	MysqlURL  string `json:"mysql_url"`
+	Rules     string `json:"rules"`
+	GiftPrice string `json:"gift_price"`
 }
 
 type InfoUid struct {

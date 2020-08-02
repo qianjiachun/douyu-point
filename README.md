@@ -173,6 +173,7 @@ charset=utf8mb4&collation=utf8mb4_unicode_ci
 	room_id: "", // 房间号，必须是真实房间号
 	mysql_url: "", // mysql数据库地址，格式必须为golang连接mysql的url格式 注意带上参数charset=utf8mb4&collation=utf8mb4_unicode_ci以支持emoji
 	rules: "./rules.json", // 规则地址
+    gift_price: "./gift_price.json" // 礼物价格表 map[string]int
 }
 ```
 
@@ -209,6 +210,7 @@ charset=utf8mb4&collation=utf8mb4_unicode_ci
                     ],
                     "default": { // 当上面所有rules都不满足时，则执行default的规则
                         "enable": false, // 是否开启default规则
+                        "isGiftPrice": false, // 当为礼物字段时，可以将此值设为true，然后change的值自动变为gift_price.json中礼物对应的价值，若找不到则不加不减
                         "change": 10,
                         "limit": 1,
                         "isLive": true,
@@ -218,6 +220,19 @@ charset=utf8mb4&collation=utf8mb4_unicode_ci
             ]
         }
     ]
+}
+```
+
+## gift_price.json
+```
+// 格式为 礼物id(string): 礼物价值
+// 数据可由下面两个接口生成
+// 背包礼物：http://webconf.douyucdn.cn/resource/common/prop_gift_list/prop_gift_config.json
+// 鱼翅礼物：http://open.douyucdn.cn/api/RoomApi/room/5189167
+// 自动生成json脚本：https://greasyfork.org/zh-CN/scripts/408083
+{
+  "88": 50,
+  "123": 10
 }
 ```
 
@@ -260,6 +275,9 @@ Body: token=<斗鱼的token>&offset=<limit是10>
 ```
 
 ## 更新内容
+
+### 2020年8月3日
+1. 新增礼物价值表，在config中配置好gift_price的地址后，可以在default字段中设置isGiftPrice来设置礼物的默认积分
 
 ### 2020年7月21日
 1. 新增limit状态序列化保存和加载命令，分别是saveLimit和loadLimit
@@ -332,6 +350,7 @@ Body: token=<斗鱼的token>&offset=<limit是10>
           ],
           "default": {
             "enable": true,
+            "isGiftPrice": false,
             "change": 1,
             "limit": 1,
             "isLive": true,
@@ -366,6 +385,7 @@ Body: token=<斗鱼的token>&offset=<limit是10>
           ],
           "default": {
             "enable": false,
+            "isGiftPrice": false,
             "change": 0,
             "limit": 0,
             "isLive": true,
@@ -392,6 +412,7 @@ Body: token=<斗鱼的token>&offset=<limit是10>
           ],
           "default": {
             "enable": false,
+            "isGiftPrice": false,
             "change": 0,
             "limit": 0,
             "isLive": true,

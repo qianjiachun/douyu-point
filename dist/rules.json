@@ -25,7 +25,8 @@
             }
           ],
           "default": {
-            "enable": true,
+            "enable": false,
+            "isGiftPrice": false,
             "change": 1,
             "limit": 1,
             "isLive": true,
@@ -59,10 +60,11 @@
             }
           ],
           "default": {
-            "enable": false,
+            "enable": true,
+            "isGiftPrice": true,
             "change": 0,
             "limit": 0,
-            "isLive": true,
+            "isLive": false,
             "cd": 0
           }
         }
@@ -86,6 +88,7 @@
           ],
           "default": {
             "enable": false,
+            "isGiftPrice": false,
             "change": 0,
             "limit": 0,
             "isLive": true,
